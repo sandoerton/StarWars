@@ -1,0 +1,16 @@
+.tabela {
+  width: 80%;
+}
+
+.tabela th {
+  background-color: #333;
+  color: whitesmoke;
+}
+
+.tabela .par {
+  background-color: whitesmoke;
+}
+
+.tabela .impar {
+  background-color: #bebebe;
+}
