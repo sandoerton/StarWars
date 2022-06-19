@@ -14,23 +14,3 @@
 .tabela .impar {
   background-color: #bebebe;
 }
-
-h2 {
-  font-size: 4em;
-}
-
-.center {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  text-align: center;
-}
-
-.input {
-  border-radius: 10px;
-  font-size: 2em;
-  margin: 20px;
-  padding: 10px;
-  text-align: center;
-}
