@@ -6,12 +6,6 @@ function PlanetsProvider({ children }) {
   const [dataPlanets, setDataPlanets] = useState([]);
   const [planetsFiltereds, setPlanetsFiltereds] = useState([]);
 
-  // const [filters, setFilters] = useState({
-  //   column: 'population',
-  //   comparison: 'maior que',
-  //   numb: 0,
-  // });
-
   const endpoint = 'https://swapi-trybe.herokuapp.com/api/planets';
 
   useEffect(() => {

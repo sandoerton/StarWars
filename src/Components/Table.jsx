@@ -5,21 +5,6 @@ import '../CSS/Table.css';
 function Table() {
   const { planetsFiltereds } = useContext(PlanetsContext);
 
-  // const submitFilter = ({ column, comparison, numb }) => {
-  //   if (comparison === 'maior que') {
-  //     setPlanetsFiltereds(dataPlanets
-  //       .filter((planet) => planet[column] > planet[numb]));
-  //   }
-  //   if (comparison === 'igual a') {
-  //     setPlanetsFiltereds(dataPlanets
-  //       .filter((planet) => planet[column] === planet[numb]));
-  //   }
-  //   if (comparison === 'menor que') {
-  //     setPlanetsFiltereds(dataPlanets
-  //       .filter((planet) => planet[column] < planet[numb]));
-  //   }
-  // };
-
   return (
     <table border={ 1 } className="tabela">
       <thead>
