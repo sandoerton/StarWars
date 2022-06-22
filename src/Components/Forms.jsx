@@ -1,54 +1,54 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from 'react';
 import PlanetsContext from '../Context/PlanetsContext';
 import '../CSS/Forms.css';
 
 function Forms() {
-  const {
-    dataPlanets, setPlanetsFiltereds,
-  } = useContext(PlanetsContext);
+  const { dataPlanets, setPlanetsFiltereds } = useContext(PlanetsContext);
 
   const [planetName, setPlanetName] = useState('');
   const [column, setColumn] = useState('population');
   const [comparison, setComparison] = useState('maior que');
-  const [value, setValue] = useState(0);
-  const [addNewFilter, setAddNewFilter] = useState([]);
+  const [quant, setQuant] = useState(0);
+  const [numericFilter, setNumericFilter] = useState([]);
 
   const handleChangeName = ({ target }) => {
     setPlanetName(target.value);
-    console.log(planetName);
+  };
+
+  const submitFilter = () => {
+    const newFilterComparison = {
+      column,
+      comparison,
+      quant,
+    };
+    setNumericFilter([...numericFilter, newFilterComparison]);
+
+    console.log(numericFilter);
   };
 
   useEffect(() => {
     const filterName = dataPlanets.filter((planet) => planet.name.toLowerCase()
       .includes(planetName.toLowerCase()));
 
-    console.log(addNewFilter);
-    const finalFilter = filterName.reduce((acc, filtro) => acc.filter((planets) => {
-      switch (filtro.comparison) {
-      case 'maior que':
-        return planets[filtro.column] > filtro.value;
-      case 'igual a':
-        return planets[filtro.column] === filtro.value;
-      case 'menor que':
-        return planets[filtro.column] < filtro.value;
-      default:
-        return true;
-      }
-    }), filterName);
+    const finalFilter = numericFilter.reduce(
+      (acc, filtro) => acc.filter((planets) => {
+        console.log('filtroreduce: ', filtro);
+        switch (filtro.comparison) {
+        case 'maior que':
+          return planets[filtro.column] > filtro.quant;
+        case 'igual a':
+          return planets[filtro.column] === String(filtro.quant);
+        case 'menor que':
+          return planets[filtro.column] < filtro.quant;
+        default:
+          return true;
+        }
+      }),
+      filterName,
+    );
 
     setPlanetsFiltereds(finalFilter);
-  }, [planetName]);
-
-  const submitFilter = () => {
-    const filterComparison = {
-      column,
-      comparison,
-      value,
-    };
-    console.log(filterComparison);
-    setAddNewFilter(filterComparison);
-  };
+  }, [dataPlanets, numericFilter, planetName, setPlanetsFiltereds]);
 
   return (
     <form action="">
@@ -71,6 +71,7 @@ function Forms() {
             id="column"
             name="column"
             data-testid="column-filter"
+            value={ column }
             onChange={ ({ target }) => setColumn(target.value) }
           >
             {/* <option selected disabled value="">Select...</option> */}
@@ -83,8 +84,8 @@ function Forms() {
         </label>
         <select
           id="comparison"
-          name="quantity"
           data-testid="comparison-filter"
+          value={ comparison }
           onChange={ ({ target }) => setComparison(target.value) }
         >
           {/* <option selected disabled value="">Select...</option> */}
@@ -95,8 +96,8 @@ function Forms() {
         <input
           type="number"
           data-testid="value-filter"
-          value={ value }
-          onChange={ ({ target }) => setValue(Number(target.value)) }
+          value={ quant }
+          onChange={ ({ target }) => setQuant(Number(target.value)) }
         />
         <button
           type="button"
@@ -106,11 +107,11 @@ function Forms() {
           Filtrar
         </button>
       </div>
-      {/* {addNewFilter.map((filter, index) => (
+      {numericFilter.map((filter, index) => (
         <p key={ `${index}-${filter.column}` }>
-          {`${filter.column} ${filter.comparison} ${filter.value}`}
+          {`${filter.column} ${filter.comparison} ${filter.quant}`}
         </p>
-      ))} */}
+      ))}
     </form>
   );
 }
