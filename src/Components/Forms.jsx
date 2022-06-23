@@ -133,6 +133,7 @@ function Forms() {
         {numericFilter.map((filter, index) => (
           <li
             className="li-filt"
+            data-testid="filter"
             key={ `${index}-${filter.column}` }
           >
             {`${filter.column} ${filter.comparison} ${filter.quant}`}
