@@ -3,7 +3,12 @@ import PlanetsContext from '../Context/PlanetsContext';
 import '../CSS/Forms.css';
 
 function Forms() {
-  const { dataPlanets, setPlanetsFiltereds } = useContext(PlanetsContext);
+  const {
+    dataPlanets,
+    setPlanetsFiltereds,
+    filteredColumns,
+    // setFilteredColumns,
+  } = useContext(PlanetsContext);
 
   const [planetName, setPlanetName] = useState('');
   const [column, setColumn] = useState('population');
@@ -25,6 +30,10 @@ function Forms() {
 
     console.log(numericFilter);
   };
+
+  useEffect(() => {
+
+  }, []);
 
   useEffect(() => {
     const filterName = dataPlanets.filter((planet) => planet.name.toLowerCase()
@@ -84,12 +93,9 @@ function Forms() {
             value={ column }
             onChange={ ({ target }) => setColumn(target.value) }
           >
-            {/* <option selected disabled value="">Select...</option> */}
-            <option value="population">population</option>
-            <option value="orbital_period">orbital_period</option>
-            <option value="diameter">diameter</option>
-            <option value="rotation_period">rotation_period</option>
-            <option value="surface_water">surface_water</option>
+            {filteredColumns.map((columns, index) => (
+              <option key={ index }>{ columns }</option>
+            ))}
           </select>
         </label>
         <select

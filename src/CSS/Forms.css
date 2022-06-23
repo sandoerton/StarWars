@@ -12,12 +12,15 @@ h2 {
 }
 
 .input {
-  background-color: rgba(173, 216, 230, 0.5);
   border-radius: 10px;
   font-size: 2em;
   margin: 0 auto 20px;
   padding: 10px;
   text-align: center;
+}
+
+.input, .numb {
+  background-color: rgba(221, 221, 221, 0.5);
 }
 
 .line {

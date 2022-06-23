@@ -5,6 +5,15 @@ import PlanetsContext from './PlanetsContext';
 function PlanetsProvider({ children }) {
   const [dataPlanets, setDataPlanets] = useState([]);
   const [planetsFiltereds, setPlanetsFiltereds] = useState([]);
+  const INITIAL_COLUMNS = [
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water',
+  ];
+
+  const [filteredColumns, setFilteredColumns] = useState(INITIAL_COLUMNS);
 
   const endpoint = 'https://swapi-trybe.herokuapp.com/api/planets';
 
@@ -27,6 +36,8 @@ function PlanetsProvider({ children }) {
     dataPlanets,
     planetsFiltereds,
     setPlanetsFiltereds,
+    filteredColumns,
+    setFilteredColumns,
   };
 
   return (
