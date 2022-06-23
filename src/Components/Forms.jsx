@@ -37,7 +37,7 @@ function Forms() {
         case 'maior que':
           return planets[filtro.column] > filtro.quant;
         case 'igual a':
-          return planets[filtro.column] === String(filtro.quant);
+          return Number(planets[filtro.column]) === filtro.quant;
         case 'menor que':
           return planets[filtro.column] < filtro.quant;
         default:
@@ -49,6 +49,15 @@ function Forms() {
 
     setPlanetsFiltereds(finalFilter);
   }, [dataPlanets, numericFilter, planetName, setPlanetsFiltereds]);
+
+  const handleDelete = (index) => {
+    const newFiters = numericFilter.filter((_filtro, itemIndex) => itemIndex !== index);
+    setNumericFilter(newFiters);
+  };
+
+  const handleDeleteAll = () => {
+    setNumericFilter([]);
+  };
 
   return (
     <form action="">
@@ -64,12 +73,13 @@ function Forms() {
           value={ planetName }
         />
       </div>
-      <div>
-        <label htmlFor="column">
-          Filter by:
+      <div className="line">
+        <label className="lab" htmlFor="column">
+          { 'Filter by: ' }
           <select
             id="column"
             name="column"
+            className="selec"
             data-testid="column-filter"
             value={ column }
             onChange={ ({ target }) => setColumn(target.value) }
@@ -84,6 +94,7 @@ function Forms() {
         </label>
         <select
           id="comparison"
+          className="selec"
           data-testid="comparison-filter"
           value={ comparison }
           onChange={ ({ target }) => setComparison(target.value) }
@@ -95,23 +106,46 @@ function Forms() {
         </select>
         <input
           type="number"
+          className="numb"
           data-testid="value-filter"
           value={ quant }
           onChange={ ({ target }) => setQuant(Number(target.value)) }
         />
         <button
           type="button"
+          className="btn-filt"
           data-testid="button-filter"
           onClick={ submitFilter }
         >
           Filtrar
         </button>
+        <button
+          type="button"
+          className="btn-del-all-filt"
+          data-testid="button-remove-filters"
+          onClick={ handleDeleteAll }
+        >
+          REMOVER FILTROS
+        </button>
       </div>
-      {numericFilter.map((filter, index) => (
-        <p key={ `${index}-${filter.column}` }>
-          {`${filter.column} ${filter.comparison} ${filter.quant}`}
-        </p>
-      ))}
+      <ul>
+        Filtros:
+        {numericFilter.map((filter, index) => (
+          <li
+            className="li-filt"
+            key={ `${index}-${filter.column}` }
+          >
+            {`${filter.column} ${filter.comparison} ${filter.quant}`}
+            <button
+              className="btn-del-filt"
+              type="button"
+              onClick={ () => handleDelete(index) }
+            >
+              x
+            </button>
+          </li>
+        ))}
+      </ul>
     </form>
   );
 }
