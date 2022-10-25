@@ -41,7 +41,6 @@ function Forms() {
 
     const finalFilter = numericFilter.reduce(
       (acc, filtro) => acc.filter((planets) => {
-        console.log('filtroreduce: ', filtro);
         switch (filtro.comparison) {
         case 'maior que':
           return planets[filtro.column] > filtro.quant;
